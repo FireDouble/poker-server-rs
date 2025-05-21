@@ -16,7 +16,7 @@ pub async fn join_table(
         if !result { return Err(StatusCode::INTERNAL_SERVER_ERROR); }
     }
     else {
-        return Err(StatusCode::NOT_FOUND);
+        return Err(StatusCode::FORBIDDEN);
     }
     
     Ok(key)
