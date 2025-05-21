@@ -6,3 +6,4 @@ pub mod start_game;
 pub mod exit_table;
 pub mod edit_table;
 pub mod create_table;
+pub mod find_player;
