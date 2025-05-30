@@ -34,7 +34,7 @@ pub struct Table {
 
 
 impl Table {
-    pub fn new(host_name: String, host_key: String) -> Self {
+    pub fn new(host_name: String, max_players: usize, minimal_bid: i32, starting_chips: i32, host_key: String) -> Self {
         let mut players = [const { None }; 8];
         players[0] = Some(Player::new(host_name, host_key, 100));
         Self {
@@ -47,9 +47,9 @@ impl Table {
             current_player_index: 0,
             button_index: 8,
             is_game_running: false,
-            minimal_bid: 10,
-            max_players: 8,
-            starting_chips: 100,
+            minimal_bid,
+            max_players,
+            starting_chips,
         }
     }
 
@@ -335,13 +335,13 @@ impl Table {
                     return true;
                 },
                 PlayerAction::Raise(val) => {
-                    if val > player.chips { return false; }
+                    if val > player.chips + player.current_bet { return false; }
                     player.has_acted = true;
 
-                    player.chips -= val + (self.current_required_bet - player.current_bet);
-                    self.pot += val + (self.current_required_bet - player.current_bet);
+                    player.chips -= val - player.current_bet;
+                    self.pot += val - player.current_bet;
 
-                    player.current_bet += val + (self.current_required_bet - player.current_bet);
+                    player.current_bet += val - player.current_bet;
                     self.current_required_bet += val;
 
 

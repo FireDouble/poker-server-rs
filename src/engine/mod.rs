@@ -20,7 +20,7 @@ impl Engine {
 
     pub fn get_tables(&mut self) -> &mut Vec<Table> { &mut self.tables }
 
-    pub fn new_table(&mut self, name: String, key: String) {
-        self.tables.push(Table::new(name, key));
+    pub fn new_table(&mut self, name: String, max_players: usize, minimal_bid: i32, starting_chips: i32, key: String) {
+        self.tables.push(Table::new(name, max_players, minimal_bid, starting_chips, key));
     }
 }

@@ -11,6 +11,7 @@ pub async fn search_tables(
     let mut response = Vec::new();
 
     for (id, table) in engine.lock().unwrap().get_tables().iter().enumerate() {
+        let name = table.name.clone();
         let max_players = table.max_players;
         let minimal_bid = table.minimal_bid;
         let starting_chips = table.starting_chips;
@@ -24,6 +25,7 @@ pub async fn search_tables(
         && (minimal_bid == criteria.minimal_bid || criteria.minimal_bid == 0)
         && (starting_chips == criteria.starting_chips || criteria.starting_chips == 0)
         && (current_players == criteria.current_players || criteria.current_players == 0)
+        && (name == criteria.name)
         {
             response.push(PubTable { id, name: table.name.clone(), current_players, max_players, minimal_bid, starting_chips });
             continue;
@@ -46,6 +48,7 @@ pub struct PubTable {
 
 #[derive(Deserialize)]
 pub struct SearchCriteria {
+    name: String,
     max_players: usize,
     current_players: i32,
     minimal_bid: i32,
