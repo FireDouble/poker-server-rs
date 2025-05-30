@@ -19,7 +19,7 @@ pub async fn find_player (
         }
     }
 
-    return Json(FindResponse { table: 0 as i32 })
+    return Json(FindResponse { table: -1 as i32 })
 }
 
 

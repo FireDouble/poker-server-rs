@@ -1,5 +1,5 @@
 use axum::{
-    http::{header::CONTENT_TYPE, Method}, routing::{get, post}, Router
+    http::{header::CONTENT_TYPE, Method}, routing::{post}, Router
 };
 use engine::Engine;
 use tower_http::cors::{Any, CorsLayer};
@@ -17,7 +17,7 @@ async fn main() {
 
     let cors = CorsLayer::new()
         .allow_origin(Any)
-        .allow_methods([Method::GET, Method::POST])
+        .allow_methods([Method::POST])
         .allow_headers([CONTENT_TYPE]);
 
     let app = Router::new()
@@ -27,7 +27,7 @@ async fn main() {
         .route("/exit", post(exit_table))
         .route("/edit", post(edit_table))
         .route("/action", post(perform_action))
-        .route("/search", get(search_tables))
+        .route("/search", post(search_tables))
         .route("/start", post(start_game))
         .route("/find", post(find_player))
         .with_state(engine)
