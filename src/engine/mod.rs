@@ -13,14 +13,13 @@ pub struct Engine {
 impl Engine {
     pub fn new() -> Self {
         Self {
-            tables: vec![
-            ],
+            tables: vec![],
         }
     }
 
     pub fn get_tables(&mut self) -> &mut Vec<Table> { &mut self.tables }
 
-    pub fn new_table(&mut self, name: String, max_players: usize, minimal_bid: i32, starting_chips: i32, key: String) {
-        self.tables.push(Table::new(name, max_players, minimal_bid, starting_chips, key));
+    pub fn new_table(&mut self, name: String, table_name: String, max_players: usize, minimal_bid: i32, starting_chips: i32, key: String) {
+        self.tables.push(Table::new(name,table_name, max_players, minimal_bid, starting_chips, key));
     }
 }

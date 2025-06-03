@@ -25,7 +25,7 @@ pub async fn search_tables(
         && (minimal_bid == criteria.minimal_bid || criteria.minimal_bid == 0)
         && (starting_chips == criteria.starting_chips || criteria.starting_chips == 0)
         && (current_players == criteria.current_players || criteria.current_players == 0)
-        && (name == criteria.name)
+        && (name == criteria.name || criteria.name == "".to_string())
         {
             response.push(PubTable { id, name: table.name.clone(), current_players, max_players, minimal_bid, starting_chips });
             continue;

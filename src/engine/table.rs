@@ -34,11 +34,11 @@ pub struct Table {
 
 
 impl Table {
-    pub fn new(host_name: String, max_players: usize, minimal_bid: i32, starting_chips: i32, host_key: String) -> Self {
+    pub fn new(host_name: String, table_name: String, max_players: usize, minimal_bid: i32, starting_chips: i32, host_key: String) -> Self {
         let mut players = [const { None }; 8];
         players[0] = Some(Player::new(host_name, host_key, 100));
         Self {
-            name: "Table".to_string(),
+            name: table_name,
             players,
             revealed_cards: 0,
             cards: [const { None }; 5],
