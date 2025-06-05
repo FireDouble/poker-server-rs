@@ -10,13 +10,20 @@ pub async fn exit_table(
 ) -> StatusCode {
     let mut engine = engine.lock().unwrap();
 
-    for table in engine.get_tables() {
+    for (j, table) in engine.get_tables().iter_mut().enumerate() {
         for (i, player) in table.players.iter().enumerate() {
             if let Some(player) = player {
                 if player.key != key { continue; }
 
                 let result = table.remove_player(i);
                 if !result { return StatusCode::INTERNAL_SERVER_ERROR; }
+
+                let mut current_players = 0;
+                for player in table.players.iter().enumerate() {
+                    if let Some(_) = player { current_players += 1; }
+                }
+                if current_players == 0 { engine.remove_table(j); }
+
                 return StatusCode::ACCEPTED;
             }
         }
